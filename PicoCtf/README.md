@@ -1,2 +1,0 @@
-# PicoCtf
- picoctf challenge writeup.
