@@ -2,22 +2,19 @@
 #forensics #10point
 
 ## Description
-
-Files can always be changed in a secret way. Can you find the flag? cat.jpg
-link(https://mercury.picoctf.net/static/b4d62f6e431dc8e563309ea8c33a06b3/cat.jpg)
+Files can always be changed in a secret way. Can you find the flag? [cat.jpg](https://mercury.picoctf.net/static/b4d62f6e431dc8e563309ea8c33a06b3/cat.jpg)
 
 hint 1: Look at the details of the file
 hint 2 : Make sure to submit the flag as picoCTF{XXXXX}
 
-
+---
 process:
-    - wget https://mercury.picoctf.net/static/b4d62f6e431dc8e563309ea8c33a06b3/cat.jpg
-    - cat cat.jpg
-      - unreadable text.
-    - exiftool cat.jpg  //read info of file.
+- wget https://mercury.picoctf.net/static/b4d62f6e431dc8e563309ea8c33a06b3/cat.jpg
+- cat cat.jpg --> unreadable strings.
+- exiftool cat.jpg  --> metadata of file.  [[exiftool]] [[metadata]]
 
-result:
-ExifTool Version Number         : 11.88
+Result:
+`ExifTool Version Number         : 11.88
 File Name                       : cat.jpg
 Directory                       : .
 File Size                       : 858 kB
@@ -45,14 +42,18 @@ Bits Per Sample                 : 8
 Color Components                : 3
 Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
 Image Size                      : 2560x1598
-Megapixels                      : 4.1
+Megapixels                      : 4.1`
 
-        - Strings:
-          - 7a78f3d9cfb1ce42ab5a3aa30573d617
-          - cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9
-        - 7a78f3d9cfb1ce42ab5a3aa30573d617 
-          - no results.
-        - cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9 //base64 convert.
-          - picoCTF{the_m3tadata_1s_modified}
+Strings of interest:
+> 7a78f3d9cfb1ce42ab5a3aa30573d617 cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9
 
-flag: picoCTF{the_m3tadata_1s_modified}
+Try Base conversion on string:
+	- 7a78f3d9cfb1ce42ab5a3aa30573d617 
+	- no results.
+	
+Try Base conversion on string:
+	- cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9 
+	- base64 convert --> picoCTF{the_m3tadata_1s_modified}
+	`echo cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9 | base64 -d`
+
+Flag: picoCTF{the_m3tadata_1s_modified}
